@@ -1,0 +1,12 @@
+1. What design principles does this code violate?
+	Simplicity; the if statements are unnecessarily convoluted and nearly impossible to read. Even just removing the ! operator and switching the accept and reject branches makes
+	makes it significantly easier to understand the logic. And then splitting up the booleans within the if statement makes it even better.
+2. Refactor the code to improve its design.
+
+if (score > 700 || income > 100000) {
+	accept();
+} else if (income >= 40000 && authorized && score > 500) {
+	accept();
+} else {
+	reject();
+}

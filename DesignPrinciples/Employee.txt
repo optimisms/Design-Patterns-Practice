@@ -1,0 +1,19 @@
+1. What design principles does this code violate?
+	Minimizing Dependencies & Single Responsibility Principle; there's no reason a Retirement Calculator should be tied to one specific Employee object. It should exist independently and then be passed an Employee object when it needs to calculate something, that way it can handle an infinite number of Employees independently of one another.
+2. Refactor the code to improve its design.
+
+class Employee {
+    …
+    private Date employmentStartDate;
+    private Date employmentEndDate;
+}
+
+
+class RetirementCalculator {
+    public float calculateRetirement(Employee emp) { … }
+    
+    private int getTotalYearsOfService(Date startDate, Date endDate) { … }
+
+    private int getMonthsInLastPosition(Date startDate, Date endDate) { … }
+    ...  
+}

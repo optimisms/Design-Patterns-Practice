@@ -1,0 +1,42 @@
+1. What design principles does this code violate?
+	Code duplication; the code does nearly identical operations three times to set new values for checkInterval, monitorTime, and departureOffset. 
+2. Refactor the code to improve its design.
+
+
+private final int NULL_VALUE_STRING = 1;
+private final int NON_POSITIVE_VALUE = 2;
+private final int MODULO_FAILED = 3;
+
+public void getTimes(Properties props) throws Exception {
+	checkInterval = getValue("interval", props, 0);
+	monitorTime = getValue("duration", props, checkInterval);
+	departureOffset = getValue("departure", props, checkInterval);
+}
+
+private int getValue(String propName, Properties props, int checkInterval) throws Exception {
+	int value;
+
+	String valueString = props.getProperty(propName);
+	if (valueString == null) {  throwError(propName, NULL_VALUE_STRING);  }
+	else {
+		value = Integer.parseInt(valueString);
+		if (value <= 0) {  throwError(propName, NON_POSITIVE_VALUE);  }
+		else if ((!propName.equals("interval")) && ((value % checkInterval) != 0)) {  throwError(propName, MODULO_FAILED);  }
+	}
+	return value;
+}
+
+private void throwError(String propName, int errCondition) throws Exception {
+	String errMessage;
+
+	if (errCondition == NULL_VALUE_STRING) {
+		if (propName.equals("interval")) {  errMessage = "monitor interval";  } 
+		else if (propName.equals("duration")) {  errMessage = propName;  }
+		else if (propName.equals("departure")) {  errMessage = "departure offset";  }
+	} else if (errCondition == NON_POSITIVE_VALUE) {
+		if (propName.equals("interval")) {  errMessage = "monitor interval > 0";  }
+		else {  errMessage = propName + " > 0";  }
+	} else if (errCondition == MODULO_FAILED) {  errMessage = propName + " % checkInterval"; }
+	
+	throw new MissingPropertiesException(errMessage);
+}

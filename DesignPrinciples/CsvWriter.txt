@@ -1,0 +1,37 @@
+1. What design principles does this program violate?
+	Hyperdecomposition; the algorithm has been broken down into tiny parts, even down to printing individual characters in getQuoted. It's nearly identical to the example from the reading where a
+	CreditCardNumber is represented by an array of Digits. It's taking the decomposition too far.
+2. Refactor the program to improve its design.
+
+CsvWriter.java
+
+public class CsvWriter {
+	public CsvWriter() {
+	}
+
+	public void write(String[][] lines) {
+		for (int i = 0; i < lines.length; i++) {
+			String[] currLine = lines[i];
+			for (int j = 0; j < currLine.length; j++) {
+				if (isQuoted(currLine[j]) {  writeQuoted(currLine[j]);  }
+				else {	System.out.print(currLine[j]);  }
+
+				if (j < currLine.length - 1) {  System.out.print(",");  }
+			}
+			System.out.println();
+		}			
+	}
+
+	private boolean isQuoted(String check) {  return (field.indexOf(',') != -1 || field.indexOf('\"') != -1);  }
+
+
+	private void writeQuoted(String field) {
+		String remainder = field;
+		System.out.print('\"');
+		while ((int index = remainder.indexOf('\"')) != -1) {
+			System.out.print(remainder.substring(0, index) + "\"\"");
+			remainder = remainder.substring(index);
+		}
+		System.out.print(remainder + '\"');
+	}
+}
