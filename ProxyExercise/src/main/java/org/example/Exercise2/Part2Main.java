@@ -19,8 +19,11 @@ public class Part2Main {
         Part2LazyProxyArray proxy = new Part2LazyProxyArray("myArray.txt");
         System.out.println("The filename is " + proxy.getFileName());
         System.out.println("The real array does not exist: " + proxy.getMyArray());
-        System.out.println("I will call a method.");
-        proxy.set(1, 1, 19);
+        System.out.println("To initialize it, I will ask for a value: " + proxy.get(1, 1));
         System.out.println("Now the real array exists: " + proxy.getMyArray());
+
+        System.out.println("I will change the value.");
+        proxy.set(1, 1, 19);
+        System.out.println("Now the item at (1,1) is " + proxy.get(1, 1));
     }
 }
