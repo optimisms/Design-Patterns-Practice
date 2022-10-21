@@ -1,11 +1,8 @@
-package org.example;
+package org.example.Exercise1;
 
-import org.example.Exercise1.MyProxyClass;
-
-public class Main {
+public class Part1Main {
     public static void main(String[] args) {
-        //Testing Exercise 1
-        MyProxyClass proxy = new MyProxyClass(true);
+        Part1MyProxyClass proxy = new Part1MyProxyClass(true);
         proxy.setDay(3);
         proxy.setTime(10);
         System.out.println("The current date int is " + proxy.getDay() + " and the time is " + proxy.getTime());

@@ -1,13 +1,13 @@
 package org.example.Exercise1;
 
-public class MyRealClass implements MyInterface {
+public class Part1MyRealClass implements Part1MyInterface {
     private boolean awake;
     private boolean tired;
     private final String[] classes = {"Arabic", "Software Engineering", "International Health", "Social Impact"};
     private int currClass;
     private int hwHours;
 
-    public MyRealClass() {
+    public Part1MyRealClass() {
         wakeUp();
     }
 

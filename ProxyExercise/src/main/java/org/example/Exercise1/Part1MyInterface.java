@@ -1,6 +1,6 @@
 package org.example.Exercise1;
 
-public interface MyInterface {
+public interface Part1MyInterface {
     void wakeUp();
     int doHomework();
     void goToNextClass();
