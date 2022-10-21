@@ -25,7 +25,7 @@ public class MyRealClass implements MyInterface {
             currClass++;
             hwHours++;
         }
-        else {
+        if (currClass == 3) {
             tired = true;
         }
     }

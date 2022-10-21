@@ -4,23 +4,28 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 
 public class MyProxyClass implements MyInterface {
-    private final int[] allowedDaysForSchool = {2, 4, 6};
+    private final int[] allowedDaysForSchool = {1, 3, 5};
     private final int[] allowedDaysForSleep = {1, 2, 3, 4, 5, 6, 7};
     private final int[] allowedHoursForClass = {10, 11, 12, 13, 14, 15, 16};
     private final int[] allowedHoursForHomework = {17, 18, 21, 22};
     private final int[] allowedHoursForSleep= {24, 1, 2, 3, 4, 5, 6, 7};
-    private DayOfWeek currentDay;
+    private int currentDay;
     private int currentHour;
     private final MyRealClass realClass;
+    private boolean test;
 
-    public MyProxyClass() {
+    public MyProxyClass(boolean test) {
         realClass = new MyRealClass();
+        setDateTime();
+        this.test = test;
     }
 
-    private void getDateTime() {
-        LocalDateTime dateTime = LocalDateTime.now();
-        currentDay = dateTime.getDayOfWeek();
-        currentHour = dateTime.getHour();
+    private void setDateTime() {
+        if (!test) {
+            LocalDateTime dateTime = LocalDateTime.now();
+            currentDay = dateTime.getDayOfWeek().getValue();
+            currentHour = dateTime.getHour();
+        }
     }
 
     private boolean isAllowed(int currVal, int[] searchArray) {
@@ -32,18 +37,23 @@ public class MyProxyClass implements MyInterface {
         return false;
     }
 
+    public int getTime() { return currentHour;}
+    public int getDay() { return currentDay;}
+    public void setTime(int time) { currentHour = time;}
+    public void setDay(int day) { currentDay = day;}
+
     @Override
     public void wakeUp() {
-        getDateTime();
-        if (isAllowed(currentDay.getValue(), allowedDaysForSleep) && !isAllowed(currentHour, allowedHoursForSleep)) {
+        setDateTime();
+        if (isAllowed(currentDay, allowedDaysForSleep) && !isAllowed(currentHour, allowedHoursForSleep)) {
             realClass.wakeUp();
         }
     }
 
     @Override
     public int doHomework() {
-        getDateTime();
-        if (isAllowed(currentDay.getValue(), allowedDaysForSchool) && isAllowed(currentHour, allowedHoursForHomework)) {
+        setDateTime();
+        if (isAllowed(currentDay, allowedDaysForSchool) && isAllowed(currentHour, allowedHoursForHomework)) {
             return realClass.doHomework();
         }
         else return -1;
@@ -51,16 +61,16 @@ public class MyProxyClass implements MyInterface {
 
     @Override
     public void goToNextClass() {
-        getDateTime();
-        if (isAllowed(currentDay.getValue(), allowedDaysForSchool) && isAllowed(currentHour, allowedHoursForClass)) {
+        setDateTime();
+        if (isAllowed(currentDay, allowedDaysForSchool) && isAllowed(currentHour, allowedHoursForClass)) {
             realClass.goToNextClass();
         }
     }
 
     @Override
     public String getCurrClass() {
-        getDateTime();
-        if (isAllowed(currentDay.getValue(), allowedDaysForSchool) && isAllowed(currentHour, allowedHoursForClass)) {
+        setDateTime();
+        if (isAllowed(currentDay, allowedDaysForSchool) && isAllowed(currentHour, allowedHoursForClass)) {
             return realClass.getCurrClass();
         }
         else return null;
@@ -68,8 +78,8 @@ public class MyProxyClass implements MyInterface {
 
     @Override
     public void goToBed() {
-        getDateTime();
-        if (isAllowed(currentDay.getValue(), allowedDaysForSleep) && isAllowed(currentHour, allowedHoursForSleep)) {
+        setDateTime();
+        if (isAllowed(currentDay, allowedDaysForSleep) && isAllowed(currentHour, allowedHoursForSleep)) {
             realClass.goToBed();
         }
     }
