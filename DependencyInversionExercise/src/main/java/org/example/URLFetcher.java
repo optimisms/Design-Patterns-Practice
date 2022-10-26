@@ -1,4 +1,3 @@
-
 package org.example;
 
 import org.example.interfaces.URLFetcherInterface;
@@ -8,10 +7,14 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
-
 public class URLFetcher implements URLFetcherInterface {
-	public String fetch(URL url) throws IOException {
+    URL url;
 
+    public URLFetcher(URL url) {
+        this.url = url;
+    }
+
+    public String fetch() throws IOException {
 		URLConnection connection = url.openConnection();
 		
 		StringBuilder contentBuffer = new StringBuilder();
@@ -26,4 +29,3 @@ public class URLFetcher implements URLFetcherInterface {
 		return contentBuffer.toString();
 	}
 }
-

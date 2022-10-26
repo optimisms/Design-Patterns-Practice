@@ -21,12 +21,12 @@ public class SpellingChecker {
         this.dictionary=dictionary;
     }
 
-    public SortedMap<String, Integer> check(URL url) throws IOException {
+    public SortedMap<String, Integer> check() throws IOException {
 
 		// download the document content
 		//
 //		URLFetcher fetcher = new URLFetcher();
-		String content = fetcher.fetch(url);
+		String content = fetcher.fetch();
 
 		// extract words from the content
 		//
