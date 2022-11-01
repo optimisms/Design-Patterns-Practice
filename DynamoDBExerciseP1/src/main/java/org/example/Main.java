@@ -1,16 +1,25 @@
 package org.example;
 
-import java.util.Arrays;
 import java.util.UUID;
 
 public class Main {
     public static void main(String[] args) {
 //        try {
-        TestCase[] testCases = getTestData(1);
-        System.out.println(Arrays.toString(testCases));
-        testCases = getTestData(2);
-        System.out.println(Arrays.toString(testCases));
+        FollowsDAO myDAO = new FollowsDAO();
 
+        TestCase[] testCases = getTestData(1);
+//        System.out.println(Arrays.toString(testCases));
+
+        for (TestCase testCase : testCases) {
+            myDAO.addFollower(testCase.follower_handle, testCase.follower_name, testCase.followee_handle, testCase.followee_name);
+        }
+
+        testCases = getTestData(2);
+//        System.out.println(Arrays.toString(testCases));
+
+        for (TestCase testCase : testCases) {
+            myDAO.addFollower(testCase.follower_handle, testCase.follower_name, testCase.followee_handle, testCase.followee_name);
+        }
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
