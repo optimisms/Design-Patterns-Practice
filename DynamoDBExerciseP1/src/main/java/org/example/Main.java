@@ -1,24 +1,33 @@
 package org.example;
 
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 //        try {
         FollowsDAO myDAO = new FollowsDAO();
 
-        TestCase[] testCases = getTestData(1);
-//        System.out.println(Arrays.toString(testCases));
-
-        for (TestCase testCase : testCases) {
-            myDAO.addFollower(testCase.follower_handle, testCase.follower_name, testCase.followee_handle, testCase.followee_name);
+        //Add items to DynamoDB
+        TestCase[] sameFollower = getTestData(1);
+        for (TestCase testCase : sameFollower) {
+            myDAO.addFollowerRelationship(testCase.follower_handle, testCase.follower_name, testCase.followee_handle, testCase.followee_name);
         }
 
-        testCases = getTestData(2);
-//        System.out.println(Arrays.toString(testCases));
+        TestCase[] sameFollowee = getTestData(2);
+        for (TestCase testCase : sameFollowee) {
+            myDAO.addFollowerRelationship(testCase.follower_handle, testCase.follower_name, testCase.followee_handle, testCase.followee_name);
+        }
 
-        for (TestCase testCase : testCases) {
-            myDAO.addFollower(testCase.follower_handle, testCase.follower_name, testCase.followee_handle, testCase.followee_name);
+        TimeUnit.SECONDS.sleep(15);
+
+        //Delete all items from DynamoDB
+        for (TestCase testCase : sameFollower) {
+            myDAO.deleteFollowerRelationship(testCase.follower_handle, testCase.followee_handle);
+        }
+
+        for (TestCase testCase : sameFollowee) {
+            myDAO.deleteFollowerRelationship(testCase.follower_handle, testCase.followee_handle);
         }
 //        } catch (Exception e) {
 //            e.printStackTrace();

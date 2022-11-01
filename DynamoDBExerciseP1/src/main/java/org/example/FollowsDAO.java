@@ -16,14 +16,19 @@ public class FollowsDAO {
     private static AmazonDynamoDB amazonDynamoDB = AmazonDynamoDBClientBuilder.standard().withRegion("us-west-2").build();
     private static DynamoDB dynamoDB = new DynamoDB(amazonDynamoDB);
 
-    public void addFollower(String follower_handle, String follower_name, String followee_handle, String followee_name) {
+    public void addFollowerRelationship(String follower_handle, String follower_name, String followee_handle, String followee_name) {
         Table table = dynamoDB.getTable(TABLE_NAME);
 
         Item item = new Item().withPrimaryKey(FOLLOWER_HANDLE_ATTR, follower_handle,
                         FOLLOWEE_HANDLE_ATTR, followee_handle)
-                .withString(FOLLOWER_NAME_ATTR, follower_name)
-                .withString(FOLLOWEE_NAME_ATTR, followee_name);
+                .withString(FOLLOWEE_NAME_ATTR, followee_name)
+                .withString(FOLLOWER_NAME_ATTR, follower_name);
 
         table.putItem(item);
+    }
+
+    public void deleteFollowerRelationship(String follower_handle, String followee_handle) {
+        Table table = dynamoDB.getTable(TABLE_NAME);
+        table.deleteItem(FOLLOWER_HANDLE_ATTR, follower_handle, FOLLOWEE_HANDLE_ATTR, followee_handle);
     }
 }
