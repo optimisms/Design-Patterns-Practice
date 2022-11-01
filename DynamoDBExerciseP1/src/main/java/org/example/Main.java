@@ -19,16 +19,19 @@ public class Main {
             myDAO.addFollowerRelationship(testCase.follower_handle, testCase.follower_name, testCase.followee_handle, testCase.followee_name);
         }
 
-        TimeUnit.SECONDS.sleep(15);
+        TestCase relationship = sameFollowee[0];
+        myDAO.updateFollowerRelationship(relationship.follower_handle, relationship.followee_handle, "just11blocks", "goldie031");
+
+//        TimeUnit.SECONDS.sleep(15);
 
         //Delete all items from DynamoDB
-        for (TestCase testCase : sameFollower) {
-            myDAO.deleteFollowerRelationship(testCase.follower_handle, testCase.followee_handle);
-        }
-
-        for (TestCase testCase : sameFollowee) {
-            myDAO.deleteFollowerRelationship(testCase.follower_handle, testCase.followee_handle);
-        }
+//        for (TestCase testCase : sameFollower) {
+//            myDAO.deleteFollowerRelationship(testCase.follower_handle, testCase.followee_handle);
+//        }
+//
+//        for (TestCase testCase : sameFollowee) {
+//            myDAO.deleteFollowerRelationship(testCase.follower_handle, testCase.followee_handle);
+//        }
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
