@@ -109,8 +109,26 @@
       <option name="project" value="LOCAL" />
       <updated>1667266090477</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Added GET Dao function">
+      <created>1667266777570</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1667266777570</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added PUT Dao function" />
@@ -118,6 +136,7 @@
     <MESSAGE value="Added UPDATE Dao function" />
     <MESSAGE value="Added DataAccessException class; unsure if it will be used" />
     <MESSAGE value="Added ResultsPage class; unsure if it will be used" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added ResultsPage class; unsure if it will be used" />
+    <MESSAGE value="Added GET Dao function" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added GET Dao function" />
   </component>
 </project>

@@ -29,14 +29,16 @@ public class Main {
             //Update relationship in DB
             myDAO.updateFollowerRelationship(relationship.follower_handle, relationship.followee_handle, "just11blocks", "goldie031");
 
-            TimeUnit.SECONDS.sleep(15);
+            //Delete 1 relationship from DB
+            myDAO.deleteFollowerRelationship(relationship.follower_handle, relationship.followee_handle);
 
-            //Delete all items from DB
+            //Delete all items from DB for cleanup
             for (TestCase testCase : sameFollower) {
                 myDAO.deleteFollowerRelationship(testCase.follower_handle, testCase.followee_handle);
             }
 
             for (TestCase testCase : sameFollowee) {
+                if (testCase == relationship) { continue; } //to avoid errors from deleting the same object twice
                 myDAO.deleteFollowerRelationship(testCase.follower_handle, testCase.followee_handle);
             }
         } catch (Exception e) {

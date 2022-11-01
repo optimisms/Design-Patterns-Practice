@@ -35,7 +35,7 @@ public class FollowsDAO {
 
         Item item = table.getItem(FOLLOWER_HANDLE_ATTR, follower_handle, FOLLOWEE_HANDLE_ATTR, followee_handle);
         if (item == null) {
-            throw new DataAccessException("Item not found at (" + FOLLOWER_HANDLE_ATTR + ":" + follower_handle + ") & (" + FOLLOWEE_HANDLE_ATTR + ":" + followee_handle + ")");
+            throw new DataAccessException("Item not found at PrimaryKey (" + FOLLOWER_HANDLE_ATTR + ":" + follower_handle + ") with SortKey (" + FOLLOWEE_HANDLE_ATTR + ":" + followee_handle + ")");
         } else {
             return new TestCase(item.getString(FOLLOWER_HANDLE_ATTR), item.getString(FOLLOWER_NAME_ATTR), item.getString(FOLLOWEE_HANDLE_ATTR), item.getString(FOLLOWEE_NAME_ATTR));
         }
