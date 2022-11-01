@@ -16,8 +16,8 @@ public class FollowsDAO {
     private static final String FOLLOWEE_HANDLE_ATTR = "followee_handle";
     private static final String FOLLOWEE_NAME_ATTR = "followee_name";
 
-    private static AmazonDynamoDB amazonDynamoDB = AmazonDynamoDBClientBuilder.standard().withRegion("us-west-2").build();
-    private static DynamoDB dynamoDB = new DynamoDB(amazonDynamoDB);
+    private static final AmazonDynamoDB amazonDynamoDB = AmazonDynamoDBClientBuilder.standard().withRegion("us-west-2").build();
+    private static final DynamoDB dynamoDB = new DynamoDB(amazonDynamoDB);
 
     public void addFollowerRelationship(String follower_handle, String follower_name, String followee_handle, String followee_name) {
         Table table = dynamoDB.getTable(TABLE_NAME);

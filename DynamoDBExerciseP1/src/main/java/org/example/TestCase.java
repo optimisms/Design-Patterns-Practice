@@ -1,10 +1,10 @@
 package org.example;
 
 public class TestCase {
-    public String follower_handle;
-    public String follower_name;
-    public String followee_handle;
-    public String followee_name;
+    public final String follower_handle;
+    public final String follower_name;
+    public final String followee_handle;
+    public final String followee_name;
 
     public TestCase(String follower_handle, String follower_name, String followee_handle, String followee_name) {
         this.follower_handle = follower_handle;
