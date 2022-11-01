@@ -30,6 +30,17 @@ public class FollowsDAO {
         table.putItem(item);
     }
 
+    public TestCase getRelationship(String follower_handle, String followee_handle) throws DataAccessException {
+        Table table = dynamoDB.getTable(TABLE_NAME);
+
+        Item item = table.getItem(FOLLOWER_HANDLE_ATTR, follower_handle, FOLLOWEE_HANDLE_ATTR, followee_handle);
+        if (item == null) {
+            throw new DataAccessException("Item not found at (" + FOLLOWER_HANDLE_ATTR + ":" + follower_handle + ") & (" + FOLLOWEE_HANDLE_ATTR + ":" + followee_handle + ")");
+        } else {
+            return new TestCase(item.getString(FOLLOWER_HANDLE_ATTR), item.getString(FOLLOWER_NAME_ATTR), item.getString(FOLLOWEE_HANDLE_ATTR), item.getString(FOLLOWEE_NAME_ATTR));
+        }
+    }
+
     public void updateFollowerRelationship(String follower_handle, String followee_handle, String new_follower_name, String new_followee_name) {
         Table table = dynamoDB.getTable(TABLE_NAME);
 

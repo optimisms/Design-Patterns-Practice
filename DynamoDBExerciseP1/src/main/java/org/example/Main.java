@@ -4,37 +4,44 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
-//        try {
-        FollowsDAO myDAO = new FollowsDAO();
+    public static void main(String[] args) {
+        try {
+            FollowsDAO myDAO = new FollowsDAO();
 
-        //Add items to DynamoDB
-        TestCase[] sameFollower = getTestData(1);
-        for (TestCase testCase : sameFollower) {
-            myDAO.addFollowerRelationship(testCase.follower_handle, testCase.follower_name, testCase.followee_handle, testCase.followee_name);
+            //Add items to DynamoDB
+            TestCase[] sameFollower = getTestData(1);
+            for (TestCase testCase : sameFollower) {
+                myDAO.addFollowerRelationship(testCase.follower_handle, testCase.follower_name, testCase.followee_handle, testCase.followee_name);
+            }
+
+            TestCase[] sameFollowee = getTestData(2);
+            for (TestCase testCase : sameFollowee) {
+                myDAO.addFollowerRelationship(testCase.follower_handle, testCase.follower_name, testCase.followee_handle, testCase.followee_name);
+            }
+
+            //Get relationship from DB
+            TestCase relationship = sameFollowee[0];
+            TestCase retrievedRelationship = myDAO.getRelationship(relationship.follower_handle, relationship.followee_handle);
+
+            System.out.println(relationship);
+            System.out.println(retrievedRelationship);
+
+            //Update relationship in DB
+            myDAO.updateFollowerRelationship(relationship.follower_handle, relationship.followee_handle, "just11blocks", "goldie031");
+
+            TimeUnit.SECONDS.sleep(15);
+
+            //Delete all items from DB
+            for (TestCase testCase : sameFollower) {
+                myDAO.deleteFollowerRelationship(testCase.follower_handle, testCase.followee_handle);
+            }
+
+            for (TestCase testCase : sameFollowee) {
+                myDAO.deleteFollowerRelationship(testCase.follower_handle, testCase.followee_handle);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        TestCase[] sameFollowee = getTestData(2);
-        for (TestCase testCase : sameFollowee) {
-            myDAO.addFollowerRelationship(testCase.follower_handle, testCase.follower_name, testCase.followee_handle, testCase.followee_name);
-        }
-
-        TestCase relationship = sameFollowee[0];
-        myDAO.updateFollowerRelationship(relationship.follower_handle, relationship.followee_handle, "just11blocks", "goldie031");
-
-//        TimeUnit.SECONDS.sleep(15);
-
-        //Delete all items from DynamoDB
-//        for (TestCase testCase : sameFollower) {
-//            myDAO.deleteFollowerRelationship(testCase.follower_handle, testCase.followee_handle);
-//        }
-//
-//        for (TestCase testCase : sameFollowee) {
-//            myDAO.deleteFollowerRelationship(testCase.follower_handle, testCase.followee_handle);
-//        }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
     }
 
     public static TestCase[] getTestData(int caseNum) {
