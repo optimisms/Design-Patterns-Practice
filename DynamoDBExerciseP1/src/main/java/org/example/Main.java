@@ -32,7 +32,7 @@ public class Main {
             //Delete 1 relationship from DB
             myDAO.deleteFollowerRelationship(relationship.follower_handle, relationship.followee_handle);
 
-            TimeUnit.SECONDS.sleep(20);
+            TimeUnit.SECONDS.sleep(10);
 
             //Delete all items from DB for cleanup
             for (Relationship testCase : sameFollower) {
