@@ -1,11 +1,20 @@
 package org.example;
 
-import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
-import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
-import software.amazon.awssdk.enhanced.dynamodb.Key;
-import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
+import software.amazon.awssdk.core.pagination.sync.SdkIterable;
+import software.amazon.awssdk.enhanced.dynamodb.*;
+import software.amazon.awssdk.enhanced.dynamodb.model.Page;
+import software.amazon.awssdk.enhanced.dynamodb.model.PageIterable;
+import software.amazon.awssdk.enhanced.dynamodb.model.QueryConditional;
+import software.amazon.awssdk.enhanced.dynamodb.model.QueryEnhancedRequest;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class FollowsDAO {
     private static final String TABLE_NAME = "follows";
@@ -17,6 +26,10 @@ public class FollowsDAO {
 
     private static DynamoDbClient dynamoDbClient = DynamoDbClient.builder().region(Region.US_WEST_2).build();
     private static DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder().dynamoDbClient(dynamoDbClient).build();
+
+    private static boolean isNonEmptyString(String value) {
+        return (value != null && value.length() > 0);
+    }
 
     public Relationship getRelationship(String follower_handle, String followee_handle) throws DataAccessException {
         DynamoDbTable<Relationship> table = enhancedClient.table(TABLE_NAME, TableSchema.fromBean(Relationship.class));
@@ -56,5 +69,53 @@ public class FollowsDAO {
         DynamoDbTable<Relationship> table = enhancedClient.table(TABLE_NAME, TableSchema.fromBean(Relationship.class));
         Key key = Key.builder().partitionValue(follower_handle).sortValue(followee_handle).build();
         table.deleteItem(key);
+    }
+
+    public List<Relationship> getFollowing(String follower_handle, int pageSize, String last_followee_handle) {
+        DynamoDbTable<Relationship> table = enhancedClient.table(TABLE_NAME, TableSchema.fromBean(Relationship.class));
+        Key key = Key.builder()
+                .partitionValue(follower_handle)
+                .build();
+
+        QueryEnhancedRequest.Builder requestBuilder = QueryEnhancedRequest.builder()
+                .queryConditional(QueryConditional.keyEqualTo(key)).scanIndexForward(true);
+
+        if (isNonEmptyString(last_followee_handle)) {
+            Map<String, AttributeValue> startKey = new HashMap<>();
+            startKey.put(FOLLOWER_HANDLE_ATTR, AttributeValue.builder().s(follower_handle).build());
+            startKey.put(FOLLOWEE_HANDLE_ATTR, AttributeValue.builder().s(last_followee_handle).build());
+
+            requestBuilder.exclusiveStartKey(startKey);
+        }
+
+        QueryEnhancedRequest request = requestBuilder.build();
+
+        return table.query(request).items().stream().limit(pageSize).collect(Collectors.toList());
+    }
+
+    public List<Relationship> getFollowers(String followee_handle, int pageSize, String last_follower_handle) {
+        DynamoDbIndex<Relationship> index = enhancedClient.table(TABLE_NAME, TableSchema.fromBean(Relationship.class)).index(INDEX_NAME);
+        Key key = Key.builder().partitionValue(followee_handle).build();
+
+        QueryEnhancedRequest.Builder requestBuilder = QueryEnhancedRequest.builder()
+                .queryConditional(QueryConditional.keyEqualTo(key)).limit(pageSize).scanIndexForward(false);
+
+        if (isNonEmptyString(last_follower_handle)) {
+            Map<String, AttributeValue> startKey = new HashMap<>();
+            startKey.put(FOLLOWEE_HANDLE_ATTR, AttributeValue.builder().s(followee_handle).build());
+            startKey.put(FOLLOWER_HANDLE_ATTR, AttributeValue.builder().s(last_follower_handle).build());
+
+            requestBuilder.exclusiveStartKey(startKey);
+        }
+
+        QueryEnhancedRequest request = requestBuilder.build();
+
+        List<Relationship> followers = new ArrayList<>();
+
+        SdkIterable<Page<Relationship>> results2 = index.query(request);
+        PageIterable<Relationship> pages =PageIterable.create(results2);
+        pages.stream().limit(1).forEach(followersPage -> followersPage.items().forEach(f -> followers.add(f)));
+
+        return followers;
     }
 }
