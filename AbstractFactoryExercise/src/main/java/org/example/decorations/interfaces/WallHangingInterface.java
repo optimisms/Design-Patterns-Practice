@@ -1,4 +1,4 @@
-package org.example.interfaces;
+package org.example.decorations.interfaces;
 
 public interface WallHangingInterface {
     String getHanging();

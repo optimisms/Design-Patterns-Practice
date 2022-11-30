@@ -1,18 +1,19 @@
 package org.example;
 
-import org.example.interfaces.TableclothPatternInterface;
-import org.example.interfaces.WallHangingInterface;
-import org.example.interfaces.YardOrnamentInterface;
+import org.example.decorations.interfaces.TableclothPatternInterface;
+import org.example.decorations.interfaces.WallHangingInterface;
+import org.example.decorations.interfaces.YardOrnamentInterface;
+import org.example.factory.DecorationFactoryInterface;
 
 public class DecorationPlacer {
-    private TableclothPatternInterface tableclothPattern;
-    private WallHangingInterface wallHanging;
-    private YardOrnamentInterface yardOrnament;
+    private final TableclothPatternInterface tableclothPattern;
+    private final WallHangingInterface wallHanging;
+    private final YardOrnamentInterface yardOrnament;
 
-    public DecorationPlacer(TableclothPatternInterface tableclothPattern, WallHangingInterface wallHanging, YardOrnamentInterface yardOrnament) {
-        this.tableclothPattern=tableclothPattern;
-        this.wallHanging=wallHanging;
-        this.yardOrnament=yardOrnament;
+    public DecorationPlacer(DecorationFactoryInterface factory) {
+        this.tableclothPattern = factory.getTablecloth();
+        this.wallHanging = factory.getWallHanging();
+        this.yardOrnament = factory.getYardOrnament();
     }
 
     public String placeDecorations() {
