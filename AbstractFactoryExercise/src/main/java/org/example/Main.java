@@ -2,6 +2,8 @@ package org.example;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        DecorationPlacer decorationPlacer = new DecorationPlacer();
+
+        System.out.println(decorationPlacer.placeDecorations());
     }
 }
