@@ -1,14 +1,18 @@
 package org.example;
 
+import org.example.interfaces.TableclothPatternInterface;
+import org.example.interfaces.WallHangingInterface;
+import org.example.interfaces.YardOrnamentInterface;
+
 public class DecorationPlacer {
+    private TableclothPatternInterface tableclothPattern;
+    private WallHangingInterface wallHanging;
+    private YardOrnamentInterface yardOrnament;
 
-    // FIXME use dependency inversion to remove these hard-coded dependencies
-    private HalloweenTableclothPatternProvider tableclothPattern = new HalloweenTableclothPatternProvider();
-    private HalloweenWallHangingProvider wallHanging = new HalloweenWallHangingProvider();
-    private HalloweenYardOrnamentProvider yardOrnament = new HalloweenYardOrnamentProvider();
-
-    public DecorationPlacer() {
-
+    public DecorationPlacer(TableclothPatternInterface tableclothPattern, WallHangingInterface wallHanging, YardOrnamentInterface yardOrnament) {
+        this.tableclothPattern=tableclothPattern;
+        this.wallHanging=wallHanging;
+        this.yardOrnament=yardOrnament;
     }
 
     public String placeDecorations() {

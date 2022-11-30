@@ -1,7 +1,8 @@
 package org.example;
 
-public class HalloweenYardOrnamentProvider {
+import org.example.interfaces.YardOrnamentInterface;
 
+public class HalloweenYardOrnamentProvider implements YardOrnamentInterface {
     public String getOrnament() {
         return "jack-o-lantern";
     }

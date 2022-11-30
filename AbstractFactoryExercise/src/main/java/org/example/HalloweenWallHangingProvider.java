@@ -1,7 +1,8 @@
 package org.example;
 
-public class HalloweenWallHangingProvider {
+import org.example.interfaces.WallHangingInterface;
 
+public class HalloweenWallHangingProvider implements WallHangingInterface {
     public String getHanging() {
         return "spider-web";
     }

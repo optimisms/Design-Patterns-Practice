@@ -1,7 +1,8 @@
 package org.example;
 
-public class HalloweenTableclothPatternProvider {
+import org.example.interfaces.TableclothPatternInterface;
 
+public class HalloweenTableclothPatternProvider implements TableclothPatternInterface {
     public String getTablecloth() {
         return "ghosts and skeletons";
     }
