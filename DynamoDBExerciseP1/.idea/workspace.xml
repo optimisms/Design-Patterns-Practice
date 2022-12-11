@@ -5,21 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6b0bd0fc-46ee-42c3-82f1-dbaf91b62ab3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/software_amazon_awssdk_dynamodb.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/software_amazon_awssdk_dynamodb_enhanced.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../DynamoDBExerciseP2/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../DynamoDBExerciseP2/.idea/checkstyle-idea.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../DynamoDBExerciseP2/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../DynamoDBExerciseP2/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../DynamoDBExerciseP2/DynamoDBExerciseP2.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../DynamoDBExerciseP2/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../DynamoDBExerciseP2/src/main/java/org/example/DataAccessException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../DynamoDBExerciseP2/src/main/java/org/example/FollowsDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../DynamoDBExerciseP2/src/main/java/org/example/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../DynamoDBExerciseP2/src/main/java/org/example/Relationship.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../DynamoDBExerciseP2/src/main/java/org/example/ResultsPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/FollowsDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/FollowsDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DynamoDBExerciseP2/target/classes/org/example/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/../DynamoDBExerciseP2/target/classes/org/example/Main.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +46,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "project.structure.last.edited": "Modules",
+    "project.structure.last.edited": "Global Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "run.code.analysis.last.selected.profile": "pProject Default"
