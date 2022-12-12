@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-class Document implements IDocument {
+public class Document implements IDocument {
     private ISequence _sequence;
     private int _length;
     private int _cursor;

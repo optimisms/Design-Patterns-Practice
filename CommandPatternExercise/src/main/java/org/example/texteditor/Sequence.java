@@ -9,7 +9,7 @@ public class Sequence implements ISequence {
 
     @Override
     public void print() {
-        System.out.println(this.toString());
+        System.out.println(this);
     }
 
     @Override
