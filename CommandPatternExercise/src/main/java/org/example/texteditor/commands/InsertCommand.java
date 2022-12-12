@@ -20,11 +20,11 @@ public class InsertCommand implements Command {
 
     @Override
     public void undo() {
-        //TODO:
+        doc.delete(insertionIndex, sequenceInput.length());
     }
 
     @Override
     public void redo() {
-        //TODO:
+        execute();
     }
 }

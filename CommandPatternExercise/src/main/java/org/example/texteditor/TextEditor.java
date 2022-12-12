@@ -5,28 +5,9 @@ import org.example.texteditor.commands.*;
 import java.util.Scanner;
 
 public class TextEditor {
-    private static TextEditor _instance = new TextEditor(new Document(new Sequence()));
-
-    public static void start() { _instance._start(); }
-    public static void insert() {
-        _instance._insert();
-    }
-    public static void delete() {
-        _instance._delete();
-    }
-    public static void replace() {
-        _instance._replace();
-    }
-    public static void open() {
-        _instance._open();
-    }
-    public static IDocument getDoc() { return _instance._document; }
-    public static void setDoc(IDocument doc) { _instance._document = doc; }
-
     private IDocument _document;
     private final UndoRedoManager manager;
 
-    //TODO: make private?
     TextEditor(IDocument document) {
         _document = document;
         manager = new UndoRedoManager();
@@ -43,25 +24,25 @@ public class TextEditor {
             if (option != -1) {
                 switch (option) {
                     case 1:
-                        _insert();
+                        insert();
                         break;
                     case 2:
-                        _delete();
+                        delete();
                         break;
                     case 3:
-                        _replace();
+                        replace();
                         break;
                     case 4:
                         _document.display();
                         break;
                     case 5:
-                        _save();
+                        save();
                         break;
                     case 6:
-                        _open();
+                        open();
                         break;
                     case 7:
-                        _start();
+                        start();
                         break;
                     case 8:
                         manager.undo();
@@ -95,11 +76,11 @@ public class TextEditor {
         System.out.print("Your selection: ");
     }
 
-    private void _start() {
+    private void start() {
         manager.execute(new StartCommand(_document));
     }
 
-    private void _insert() {
+    private void insert() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Start index: ");
@@ -113,7 +94,7 @@ public class TextEditor {
         }
     }
 
-    private void _delete() {
+    private void delete() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Start index: ");
@@ -124,15 +105,19 @@ public class TextEditor {
             String deletionDistanceInput = scanner.next();
             int deletionDistance = validateNumberInput(deletionDistanceInput);
             if (deletionDistance != -1) {
-                manager.execute(new DeleteCommand(_document, deletionIndex, deletionDistance));
 //                if (_document.delete(deletionIndex, deletionDistance) == null) {
 //                    System.out.println("Deletion unsuccessful");
 //                }
+                DeleteCommand command = new DeleteCommand(_document, deletionIndex, deletionDistance);
+                manager.execute(command);
+                if (command.getDeletedString() == null) {
+                    System.out.println("Deletion unsuccessful");
+                }
             }
         }
     }
 
-    private void _replace() {
+    private void replace() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Start index: ");
@@ -152,7 +137,7 @@ public class TextEditor {
         }
     }
 
-    private void _save() {
+    private void save() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Name of file: ");
@@ -160,7 +145,7 @@ public class TextEditor {
         _document.save(saveFileName);
     }
 
-    private void _open() {
+    private void open() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Name of file to open: ");

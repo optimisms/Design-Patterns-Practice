@@ -6,8 +6,8 @@ public class StartCommand implements Command {
     IDocument doc;
     String oldDocString;
 
-    public StartCommand(IDocument document) {
-        doc = document;
+    public StartCommand(IDocument doc) {
+        this.doc=doc;
     }
 
     @Override
@@ -18,11 +18,11 @@ public class StartCommand implements Command {
 
     @Override
     public void undo() {
-        //TODO:
+        doc.insert(0, oldDocString);
     }
 
     @Override
     public void redo() {
-        //TODO:
+        execute();
     }
 }

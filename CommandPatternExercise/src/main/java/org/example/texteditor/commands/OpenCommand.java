@@ -5,6 +5,7 @@ import org.example.texteditor.IDocument;
 public class OpenCommand implements Command {
     IDocument doc;
     String openFileName;
+    String oldDocString;
 
     public OpenCommand(IDocument doc, String openFileName) {
         this.doc=doc;
@@ -13,16 +14,18 @@ public class OpenCommand implements Command {
 
     @Override
     public void execute() {
+        oldDocString = doc.sequence().toString();
         doc.open(openFileName);
     }
 
     @Override
     public void undo() {
-        //TODO:
+        doc.clear();
+        doc.insert(0, oldDocString);
     }
 
     @Override
     public void redo() {
-//TODO:
+        execute();
     }
 }

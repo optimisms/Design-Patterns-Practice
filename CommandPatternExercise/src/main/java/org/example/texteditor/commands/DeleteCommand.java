@@ -6,6 +6,7 @@ public class DeleteCommand implements Command {
     int deletionIndex;
     int deletionDistance;
     IDocument document;
+    String deletedString;
 
     public DeleteCommand(IDocument document, int deletionIndex, int deletionDistance) {
         this.deletionIndex=deletionIndex;
@@ -15,16 +16,18 @@ public class DeleteCommand implements Command {
 
     @Override
     public void execute() {
-        document.delete(deletionIndex, deletionDistance);
+        deletedString = document.delete(deletionIndex, deletionDistance);
     }
 
     @Override
     public void undo() {
-//TODO:
+        document.insert(deletionIndex, deletedString);
     }
 
     @Override
     public void redo() {
-//TODO:
+        execute();
     }
+
+    public String getDeletedString() { return deletedString; }
 }

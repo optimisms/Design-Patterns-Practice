@@ -7,6 +7,7 @@ public class ReplaceCommand implements Command {
     int replaceIndex;
     int replaceDistance;
     String replacementString;
+    String oldString;
 
     public ReplaceCommand(IDocument doc, int replaceIndex, int replaceDistance, String replacementString) {
         this.doc=doc;
@@ -17,17 +18,18 @@ public class ReplaceCommand implements Command {
 
     @Override
     public void execute() {
-        doc.delete(replaceIndex, replaceDistance);
+        oldString = doc.delete(replaceIndex, replaceDistance);
         doc.insert(replaceIndex, replacementString);
     }
 
     @Override
     public void undo() {
-        //TODO:
+        doc.delete(replaceIndex, replaceDistance);
+        doc.insert(replaceIndex, oldString);
     }
 
     @Override
     public void redo() {
-        //TODO:
+        execute();
     }
 }
